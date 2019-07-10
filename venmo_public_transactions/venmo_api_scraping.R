@@ -5,7 +5,7 @@ library(lubridate)
 library(RJSONIO)
 library(jsonlite)
 
-load("/Users/michaelspencer/data_projects/venmo_transactions/data/all_transactions.rdata")
+load("/Users/michaelspencer/data_projects/personal_projects/venmo_public_transactions/data/all_transactions.rdata")
 
 new_transaction_data <- 
   fromJSON(txt = "https://venmo.com/api/v5/public", flatten = TRUE)$data
@@ -16,5 +16,5 @@ transaction_data <-
 
 save(
   transaction_data, 
-  file = "/Users/michaelspencer/data_projects/venmo_transactions/data/all_transactions.rdata"
+  file = "/Users/michaelspencer/data_projects/personal_projects/venmo_public_transactions/data/all_transactions.rdata"
 )

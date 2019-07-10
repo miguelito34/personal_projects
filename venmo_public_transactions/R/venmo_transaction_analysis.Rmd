@@ -8,3 +8,26 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+## SETUP
+```{r}
+library(tidyverse)
+library(RJSONIO)
+library(jsonlite)
+```
+
+## LOAD DATA
+```{r}
+load("/Users/michaelspencer/data_projects/personal_projects/venmo_public_transactions/data/all_transactions.rdata")
+
+View(transaction_data)
+```
+
+## CLEAN DATA
+```{r}
+transaction_data <-
+  transaction_data %>% 
+  unnest(transactions) %>% 
+  select(-comments, -mentions, -likes.data)
+```
+
