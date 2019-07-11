@@ -1,8 +1,8 @@
 ## Setup
 
-library(tidyverse)
-library(RJSONIO)
-library(jsonlite)
+library(tidyverse, quietly = TRUE, warn.conflicts = FALSE)
+library(RJSONIO, quietly = TRUE, warn.conflicts = FALSE)
+library(jsonlite, quietly = TRUE, warn.conflicts = FALSE)
 
 paste("The current time is: ", Sys.time())
 
