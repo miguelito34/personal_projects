@@ -1,0 +1,26 @@
+---
+title: "rides_analysis"
+author: "Michael Spencer"
+date: "7/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## SETUP
+```{r}
+library(tidyverse)
+```
+
+## PARAMS
+```{r}
+uber_raw_data_april14_url <- "https://github.com/fivethirtyeight/uber-tlc-foil-response/raw/master/uber-trip-data/uber-raw-data-apr14.csv"
+```
+
+## LOAD DATA
+```{r}
+uber_trip_data <- read_csv(file = uber_raw_data_april14_url, progress = TRUE)
+```
+
