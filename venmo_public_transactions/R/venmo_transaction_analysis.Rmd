@@ -28,6 +28,6 @@ View(transaction_data)
 transaction_data <-
   transaction_data %>% 
   unnest(transactions) %>% 
-  select(-comments, -mentions, -likes.data)
+  select(-comments, -mentions, -likes.data, -target)
 ```
 
