@@ -4,6 +4,8 @@ library(tidyverse)
 library(RJSONIO)
 library(jsonlite)
 
+paste("The current time is: ", Sys.time())
+
 load("/Users/michaelspencer/data_projects/personal_projects/venmo_public_transactions/data/all_transactions.rdata")
 
 new_transaction_data <- 
