@@ -26,16 +26,30 @@ uber_trip_data <- read_csv(file = uber_raw_data_april14_url, progress = TRUE)
 ```
 
 ## Plot Data
+
+Note: decreasing size further does not affect appearence, though decreasing alpha can create a heatmap of sort and enhance "resolution"
 ```{r}
-uber_trip_data %>% 
+prepped_uber_trip_data <-
+  uber_trip_data %>% 
   #head(10000) %>% 
   st_as_sf(coords = c("Lon", "Lat"), crs = 4326) %>% 
   st_transform(crs = 102003) %>% 
   st_coordinates() %>% 
-  as.data.frame() %>% 
+  as.data.frame()
+
+#Gives metro area view
+prepped_uber_trip_data %>% 
   ggplot() +
-  geom_point(aes(X, Y), size = .0000001, color = "#83a48b") +
+  geom_point(aes(X, Y), size = .0000001, color = "#83a48b", alpha = .05) +
   coord_cartesian(xlim = c(1800000, 1850000), ylim = c(560000, 590000)) +
+  theme_void() +
+  theme(panel.background = element_rect(fill = "black"))
+  
+#Gives Manhattan View
+prepped_uber_trip_data %>% 
+  ggplot() +
+  geom_point(aes(X, Y), size = .0000001, color = "#83a48b", alpha = .1) +
+  coord_cartesian(xlim = c(1815000, 1835000), ylim = c(570000, 585000)) +
   theme_void() +
   theme(panel.background = element_rect(fill = "black"))
 ```
