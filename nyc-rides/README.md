@@ -14,3 +14,5 @@ Knowing that I ultimately wanted to map this data, I started off with everyone's
 
 ### The Results
 
+![NYC Metro Map](nyc-rides/Maps/nyc_metro_1M.jpeg)
+Format: ![Alt Text](url)
