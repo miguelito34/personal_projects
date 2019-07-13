@@ -23,19 +23,48 @@ uber_raw_data_april14_url <- "https://github.com/fivethirtyeight/uber-tlc-foil-r
 
 uber_raw_data_may14_url <-
 "https://github.com/fivethirtyeight/uber-tlc-foil-response/raw/master/uber-trip-data/uber-raw-data-may14.csv"
+
+uber_raw_data_jun14_url <-
+"https://github.com/fivethirtyeight/uber-tlc-foil-response/raw/master/uber-trip-data/uber-raw-data-jun14.csv"
+
+uber_raw_data_jul14_url <-
+"https://github.com/fivethirtyeight/uber-tlc-foil-response/raw/master/uber-trip-data/uber-raw-data-jul14.csv"
+
+uber_raw_data_aug14_url <-
+"https://github.com/fivethirtyeight/uber-tlc-foil-response/raw/master/uber-trip-data/uber-raw-data-jun14.csv"
+
+uber_raw_data_sept14_url <-
+"https://github.com/fivethirtyeight/uber-tlc-foil-response/raw/master/uber-trip-data/uber-raw-data-sep14.csv"
 ```
 
 ## LOAD DATA
 
 Load in and combine the uber pickups for April and May of 2014
-```{r}
+```{r, eval=FALSE}
 uber_trip_april_data <- read_csv(file = uber_raw_data_april14_url, progress = TRUE)
 
 uber_trip_may_data <- read_csv(file = uber_raw_data_may14_url, progress = TRUE)
+
+uber_trip_jun_data <- read_csv(file = uber_raw_data_jun14_url, progress = TRUE)
+
+uber_trip_jul_data <- read_csv(file = uber_raw_data_jul14_url, progress = TRUE)
+
+uber_trip_aug_data <- read_csv(file = uber_raw_data_aug14_url, progress = TRUE)
+
+uber_trip_sept_data <- read_csv(file = uber_raw_data_sept14_url, progress = TRUE)
 ```
 
 ```{r}
-uber_trip_data <- rbind(uber_trip_april_data, uber_trip_may_data)
+uber_trip_data <- 
+  rbind(
+    read_csv(file = uber_raw_data_april14_url, progress = TRUE),
+    read_csv(file = uber_raw_data_may14_url, progress = TRUE),
+    read_csv(file = uber_raw_data_jun14_url, progress = TRUE),
+    read_csv(file = uber_raw_data_jul14_url, progress = TRUE),
+    read_csv(file = uber_raw_data_aug14_url, progress = TRUE),
+    read_csv(file = uber_raw_data_sept14_url, progress = TRUE)
+  ) %>% 
+  select(-`Date/Time`, -Base)
 ```
 
 ## PLOT DATA
@@ -51,10 +80,10 @@ prepped_uber_trip_data <-
 
 #Gives metro area views at high resolution
 ##Uncomment line below to save high resolution image
-#jpeg("nyc_metro_1M.jpeg", units = "in", width = 75, height = 50, res = 300)
+#jpeg("nyc_metro_4M.jpeg", units = "in", width = 75, height = 50, res = 300)
 prepped_uber_trip_data %>% 
   ggplot() +
-  geom_point(aes(X, Y), size = 1e-12, color = "#83a48b") +
+  geom_point(aes(X, Y), size = 1e-12, color = "#83a48b", alpha = .9) +
   coord_cartesian(xlim = c(1800000, 1850000), ylim = c(560000, 590000)) +
   theme_void() +
   theme(panel.background = element_rect(fill = "black"))
@@ -63,10 +92,10 @@ prepped_uber_trip_data %>%
 
 #Gives Manhattan View
 ##Uncomment line below to save high resolution image
-#jpeg("manh_1M.jpeg", units = "in", width = 75, height = 50, res = 300)
+#jpeg("manh_4M.jpeg", units = "in", width = 75, height = 50, res = 300)
 prepped_uber_trip_data %>% 
   ggplot() +
-  geom_point(aes(X, Y), size = 1e-8, color = "#d4efdb") +
+  geom_point(aes(X, Y), size = 1e-12, color = "#acf3bd") +
   coord_cartesian(xlim = c(1820000, 1840000), ylim = c(570000, 585000)) +
   theme_void() +
   theme(panel.background = element_rect(fill = "black"))
