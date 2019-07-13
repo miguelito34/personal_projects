@@ -1,0 +1,74 @@
+---
+title: "rides_analysis_mapdeck"
+author: "Michael Spencer"
+date: "7/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## SETUP
+```{r}
+library(tidyverse)
+library(sf)
+library(mapdeck)
+```
+
+## PARAMS
+
+Retrieve Uber data from fivethirtyeight github
+```{r}
+uber_raw_data_april14_url <- "https://github.com/fivethirtyeight/uber-tlc-foil-response/raw/master/uber-trip-data/uber-raw-data-apr14.csv"
+
+uber_raw_data_may14_url <-
+"https://github.com/fivethirtyeight/uber-tlc-foil-response/raw/master/uber-trip-data/uber-raw-data-may14.csv"
+
+key <- "pk.eyJ1IjoibWljaGFlbHNwZW5jZXIzNCIsImEiOiJjanQwbmo1YncwenB1M3lwaWZnNXRia3o1In0.G5jCymB16mciD3ddtib1JQ"
+```
+
+## LOAD DATA
+
+Load in and combine the uber pickups for April and May of 2014
+```{r}
+uber_trip_april_data <- read_csv(file = uber_raw_data_april14_url, progress = TRUE)
+
+uber_trip_may_data <- read_csv(file = uber_raw_data_may14_url, progress = TRUE)
+```
+
+```{r}
+uber_trip_data <- rbind(uber_trip_april_data, uber_trip_may_data)
+```
+
+## PREP DATA
+```{r}
+prepped_uber_trip_data <-
+  uber_trip_data %>% 
+  st_as_sf(coords = c("Lon", "Lat"), crs = 4326)
+```
+
+## PLOT DATA
+
+Add Grid
+```{r}
+mapdeck(token = key, style = mapdeck_style(style = c("dark"))) %>%
+  add_grid(
+    data = prepped_uber_trip_data, 
+    cell_size = 10, 
+    elevation = 15,
+    colour_range = c("#82ffff", "#ccffff", "#ffedff", "#ffedff", "#ffc6fe", "#ff85ff"),
+    legend = TRUE,
+    layer_id = "grid_layer"
+)
+```
+
+```{r}
+mapdeck(token = key, style = mapdeck_style(style = c("dark")), pitch = 45) %>%
+  add_scatterplot(
+    data = prepped_uber_trip_data %>% head(500000),
+    fill_colour = "#82ffff",
+    layer_id = "scatter_layer"
+)
+```
+
