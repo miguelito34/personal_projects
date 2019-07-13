@@ -66,7 +66,7 @@ prepped_uber_trip_data %>%
 #jpeg("manh_1M.jpeg", units = "in", width = 75, height = 50, res = 300)
 prepped_uber_trip_data %>% 
   ggplot() +
-  geom_point(aes(X, Y), size = 1e-8, color = "#83a48b") +
+  geom_point(aes(X, Y), size = 1e-8, color = "#d4efdb") +
   coord_cartesian(xlim = c(1820000, 1840000), ylim = c(570000, 585000)) +
   theme_void() +
   theme(panel.background = element_rect(fill = "black"))
