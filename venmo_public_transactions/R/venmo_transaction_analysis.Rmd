@@ -23,11 +23,3 @@ load("/Users/michaelspencer/data_projects/personal_projects/venmo_public_transac
 View(transaction_data)
 ```
 
-## CLEAN DATA
-```{r}
-transaction_data <-
-  transaction_data %>% 
-  unnest(transactions) %>% 
-  select(-comments, -mentions, -likes.data, -target)
-```
-
