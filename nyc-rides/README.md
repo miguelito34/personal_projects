@@ -2,7 +2,7 @@
 
 ### Overview
 
-FiveThirtyEight is one of the few organizations to have acquired trip data from a ridesharing service like Uber.  This trip data includes the date of the trip and the pickup location, including latitudes and longitudes.  Drawing inspiration from similar projects and as someone who enjoys great data visualizations, I wanted to map these pickup locations to see what I could create.
+FiveThirtyEight is one of the few organizations to have acquired valuable trip data from a ride-sharing service like Uber.  This trip data includes the date of the trip and the pickup location, including latitudes and longitudes.  Drawing inspiration from similar projects and as someone who enjoys great data visualizations, I wanted to map these pickup locations to see what I could create.
 
 ### The Data
 

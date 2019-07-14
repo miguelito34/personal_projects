@@ -63,12 +63,25 @@ mapdeck(token = key, style = mapdeck_style(style = c("dark"))) %>%
 )
 ```
 
+Add points
 ```{r}
 mapdeck(token = key, style = mapdeck_style(style = c("dark")), pitch = 45) %>%
   add_scatterplot(
     data = prepped_uber_trip_data %>% head(500000),
     fill_colour = "#82ffff",
     layer_id = "scatter_layer"
+)
+```
+
+Add Hex
+```{r}
+mapdeck(token = key, style = mapdeck_style(style = c("dark")), pitch = 45) %>%
+add_screengrid(
+  data = prepped_uber_trip_data %>% head(100000), 
+  layer_id = "screengrid_layer", 
+  cell_size = 15, 
+  opacity = .3,
+  colour_range = colourvalues::colour_values(1:6, palette = "plasma")
 )
 ```
 
