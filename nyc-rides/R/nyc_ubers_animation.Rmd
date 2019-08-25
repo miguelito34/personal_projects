@@ -13,9 +13,46 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(tidyverse)
 library(sf)
+library(lubridate)
 ```
 
 ## LOAD DATA
 ```{r}
 source(file = "./data_gathering_script.R")
 ```
+
+## TRANSFORM DATA
+```{r}
+# Need to clean more
+
+uber_trip_data_transformed <-
+  uber_trip_data %>%
+  select(-Base) %>% 
+  mutate(
+    `Date/Time` = `Date/Time` %>% mdy_hms(),
+    # month_num = month(`Date/Time`),
+    # month_abb = month(month_num, label = TRUE),
+    day_of_week = wday(`Date/Time`, week_start = 1),
+    day_of_week_abb = wday(`Date/Time`, label = TRUE, week_start = 1),
+    hour_of_day = hour(`Date/Time`),
+    am_pm = ifelse(hour_of_day < 12, "AM", "PM"),
+    std_hour_of_day = ifelse(am_pm == "PM", hour_of_day - 12, hour_of_day),
+    hour_of_day = ifelse(hour_of_day == 0, 12, hour_of_day),
+    hour_of_day = ifelse(hour_of_day == 12 & am_pm == "AM", -12, hour_of_day),
+    std_hour_of_day = ifelse(std_hour_of_day == 0, 12, std_hour_of_day),
+    label = str_c(std_hour_of_day, am_pm, " ", day_of_week_abb)
+  ) %>% 
+  arrange(day_of_week, am_pm, hour_of_day) %>% 
+  mutate(label = label %>% fct_inorder())
+```
+
+## EXPLORE DATA
+
+# Where are the early morning Ubers originating from on Weekdays?
+```{r}
+uber_trip_data_transformed %>% 
+  count(label) %>%
+  ggplot(aes(label, n)) +
+  geom_col()
+```
+
