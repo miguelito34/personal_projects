@@ -1,0 +1,21 @@
+---
+title: "NYC Uber Animations"
+author: "Michael Spencer"
+date: "8/24/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## SETUP
+```{r}
+library(tidyverse)
+library(sf)
+```
+
+## LOAD DATA
+```{r}
+source(file = "./data_gathering_script.R")
+```

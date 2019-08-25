@@ -1,0 +1,58 @@
+---
+title: "NYC Ubers Map"
+author: "Michael Spencer"
+date: "7/11/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## SETUP
+```{r}
+library(tidyverse)
+library(sf)
+```
+
+## LOAD DATA
+```{r}
+source(file = "./data_gathering_script.R")
+```
+
+## PLOT DATA
+
+Note: Decreasing size further does not affect appearence, though decreasing alpha can create a heatmap of sort and enhance "resolution". Increasing the size of the output jpeg's drastically improves the appearence of the map.
+```{r}
+prepped_uber_trip_data <-
+  uber_trip_data %>% 
+  st_as_sf(coords = c("Lon", "Lat"), crs = 4326) %>%
+  st_transform(crs = 102003) %>% 
+  st_coordinates() %>% 
+  as.data.frame()
+
+#Gives metro area views at high resolution
+##Uncomment line below to save high resolution image
+#jpeg("nyc_metro_4M.jpeg", units = "in", width = 75, height = 50, res = 300)
+prepped_uber_trip_data %>% 
+  ggplot() +
+  geom_point(aes(X, Y), size = 1e-12, color = "#83a48b", alpha = .9) +
+  coord_cartesian(xlim = c(1800000, 1850000), ylim = c(560000, 590000)) +
+  theme_void() +
+  theme(panel.background = element_rect(fill = "black"))
+##Uncoment line below to save high resolution image
+#dev.off()
+
+#Gives Manhattan View
+##Uncomment line below to save high resolution image
+#jpeg("manh_4M.jpeg", units = "in", width = 75, height = 50, res = 300)
+prepped_uber_trip_data %>% 
+  ggplot() +
+  geom_point(aes(X, Y), size = 1e-12, color = "#acf3bd") +
+  coord_cartesian(xlim = c(1820000, 1840000), ylim = c(570000, 585000)) +
+  theme_void() +
+  theme(panel.background = element_rect(fill = "black"))
+##Uncoment line below to save high resolution image
+#dev.off()
+```
+
