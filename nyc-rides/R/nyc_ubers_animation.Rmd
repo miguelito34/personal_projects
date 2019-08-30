@@ -48,7 +48,7 @@ uber_trip_data_transformed <-
 
 ## EXPLORE DATA
 
-# Where are the early morning Ubers originating from on Weekdays?
+Where are the early morning Ubers originating from on Weekdays?
 ```{r}
 uber_trip_data_transformed %>% 
   count(label) %>%

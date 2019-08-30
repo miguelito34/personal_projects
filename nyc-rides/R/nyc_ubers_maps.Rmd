@@ -26,6 +26,7 @@ Note: Decreasing size further does not affect appearence, though decreasing alph
 ```{r}
 prepped_uber_trip_data <-
   uber_trip_data %>% 
+  select(-`Date/Time`, -Base) %>% 
   st_as_sf(coords = c("Lon", "Lat"), crs = 4326) %>%
   st_transform(crs = 102003) %>% 
   st_coordinates() %>% 
